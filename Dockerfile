@@ -1,6 +1,6 @@
 FROM centos:7
 
-RUN yum -y update
+RUN yum -y update 
 RUN yum -y install  gcc git 
 RUN yum -y install  which make
 
@@ -26,11 +26,14 @@ RUN  echo $'{         						\n\
 
  }' >/1.json
 
-
+ADD apprun.sh /apprun.sh
+RUN  chmod +x /apprun.sh
 expose 8300
 
 
+ENTRYPOINT ["/apprun.sh"]
+CMD ["appstart"]
 #CMD ['unitd; curl -X PUT -d@/1.json --unix-socket /usr/control.unit.sock http://localhost/config/;  exec "$@"']
-#CMD ['/usr/sbin/unitd; curl -X PUT -d@/1.json --unix-socket /usr/control.unit.sock http://localhost/config/']
+#CMD ['/usr/sbin/unitd; curl -X PUT -d\@/1.json --unix-socket /usr/control.unit.sock http://localhost/config/']
 
 
